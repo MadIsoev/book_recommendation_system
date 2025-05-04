@@ -7,7 +7,7 @@ from datetime import datetime
 
  
 st.set_page_config(
-    page_title="📚 Book Buddy - Your Personal Book Recommender",
+    page_title="Book Recommender",
     page_icon="📚",
     layout="wide"
 )
