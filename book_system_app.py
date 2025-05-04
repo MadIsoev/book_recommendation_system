@@ -14,7 +14,7 @@ st.set_page_config(
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap');
-    
+
     .main {
         padding: 2rem;
         font-family: 'Open Sans', sans-serif;
@@ -23,6 +23,7 @@ st.markdown("""
         font-family: 'Roboto', sans-serif;
         color: #4A4A4A;
     }
+
     .stButton>button {
         width: 100%;
         background: linear-gradient(90deg, #6C63FF, #A084DC);
@@ -38,8 +39,10 @@ st.markdown("""
         transform: scale(1.05);
     }
     .stButton>button:active {
-        background: linear-gradient(90deg, #8A7DFF, #7D6BFF); /* Фикс для красного цвета при нажатии */
+        background: linear-gradient(90deg, #8A7DFF, #7D6BFF) !important;
+        color: white !important;
     }
+
     .recommendation-card {
         padding: 1.5rem;
         border-radius: 1rem;
@@ -50,10 +53,12 @@ st.markdown("""
         color: #333333;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .recommendation-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
+
     .metric-card {
         background-color: #ffffff;
         padding: 1rem;
@@ -62,10 +67,12 @@ st.markdown("""
         color: black;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .metric-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
+
     .subtitle {
         color: white;
         font-size: 16px;
@@ -73,17 +80,21 @@ st.markdown("""
         padding: 10px;
         border-radius: 5px;
     }
+
     .stSelectbox select {
         font-family: 'Open Sans', sans-serif;
         font-size: 14px;
     }
-    .stColumns .stBox {
-        background-color: #f9f9f9 !important;  /* Убираем белый фон для столбцов */
+
+    [data-testid="column"] {
+        background-color: #f9f9f9 !important;
         padding: 1rem;
-        border-radius: 8px;
+        border-radius: 10px;
     }
+
     </style>
 """, unsafe_allow_html=True)
+
 
 
 class BookRecommender:
