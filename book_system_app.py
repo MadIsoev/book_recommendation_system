@@ -138,9 +138,7 @@ class BookRecommender:
             'publication_date': row.get('publication_date', 'N/A'),
             'ratings_count': row.get('ratings_count', 0),
             'num_pages': row.get('num_pages', 'N/A')
-
         }
-
 
 @st.cache_data
 def load_data():
