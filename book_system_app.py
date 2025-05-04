@@ -128,7 +128,7 @@ class BookRecommender:
             'average_rating': row['average_rating'],
             'publication_date': row.get('publication_date', 'N/A'),
             'ratings_count': row.get('ratings_count', 0),
-            'num_pages': row.get('num_pages')
+            'num_pages': row.get('num_pages', 'N/A')
         }
 
 
@@ -209,7 +209,7 @@ def main():
                         st.markdown(f"""
                         <div class="metric-card">
                             <h4>Страниц</h4>
-                            <h2>📄 {book['num_pages']}</h2>
+                            <h2>📄 {book['num_pages']:,}</h2>
                         </div>
                         """, unsafe_allow_html=True)
 
