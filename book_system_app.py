@@ -39,11 +39,7 @@ st.markdown("""
         transform: scale(1.05);
         color: white !important;
     }
-    .stButton>button:active {
-        background: linear-gradient(90deg, #4C47E3, #6F5BB5);
-        transform: scale(1.05);
-        color: white !important;
-    }
+
 
     .recommendation-card {
         padding: 1.5rem;
