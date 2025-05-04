@@ -5,7 +5,7 @@ import plotly.express as px
 from datetime import datetime
 
 st.set_page_config(
-    page_title="NextBook — рекомендательная система",
+    page_title="NextBook — сервис рекомендаций книг",
     page_icon="📚",
     layout="wide"
 )
@@ -128,7 +128,7 @@ class BookRecommender:
             'average_rating': row['average_rating'],
             'publication_date': row.get('publication_date', 'N/A'),
             'ratings_count': row.get('ratings_count', 0),
-            'num_pages': row.get('num_pages', 'N/A')
+            'num_pages': row['num_pages']
         }
 
 
