@@ -1,18 +1,16 @@
-# Импорт библиотек
 import streamlit as st
 import pandas as pd
 from difflib import SequenceMatcher
 import plotly.express as px
 from datetime import datetime
 
-# Конфигурация страницы
 st.set_page_config(
     page_title="NextBook — рекомендательная система",
     page_icon="📚",
     layout="wide"
 )
 
-# Пользовательские стили
+# Новый стиль
 st.markdown("""
     <style>
     .main {
@@ -20,46 +18,46 @@ st.markdown("""
     }
     .stButton>button {
         width: 100%;
-        background-color: #4A90E2;
+        background: linear-gradient(90deg, #6C63FF, #A084DC);
         color: white;
-        border-radius: 8px;
-    }
-    .stButton>button:hover {
-        background-color: #357ABD;
-        transition: 0.3s ease-in-out;
+        border: none;
+        padding: 0.6rem;
+        border-radius: 0.5rem;
+        font-weight: bold;
     }
     .recommendation-card {
         padding: 1.5rem;
-        border-radius: 0.75rem;
-        background-color: #f0f4f8;
+        border-radius: 1rem;
+        background: linear-gradient(135deg, #F4F3FF, #ECEBFF);
         margin: 1rem 0;
-        border-left: 6px solid #4A90E2;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        border-left: 5px solid #6C63FF;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        color: black;
     }
     .metric-card {
         background-color: #ffffff;
         padding: 1rem;
-        border-radius: 0.75rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        text-align: center;
+        border-radius: 0.8rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        color: black;
     }
     h1 {
-        color: #4A90E2;
+        color: #6C63FF;
     }
     h2, h3, h4, h6 {
-        color: #111111;
+        color: #333333;
     }
     .subtitle {
         color: white;
         font-size: 16px;
-        background-color: #4A90E2;
+        background-color: #6C63FF;
         padding: 10px;
         border-radius: 5px;
     }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# Класс рекомендательной системы
+
 class BookRecommender:
     def __init__(self, data):
         self.df = pd.DataFrame(data)
@@ -81,14 +79,16 @@ class BookRecommender:
 
     def recommend_books(self, query, by='title', n_recommendations=5):
         similarities = []
-        for idx, row in self.df.iterrows():
-            if by == 'title':
+        if by == 'title':
+            for idx, row in self.df.iterrows():
                 similarity = self.get_title_similarity(query, row['clean_title'])
                 if similarity < 1.0:
                     similarities.append(self._create_recommendation_dict(row, similarity))
-            else:
+        elif by == 'author':
+            for idx, row in self.df.iterrows():
                 similarity = self.get_author_similarity(query, row['authors'])
                 similarities.append(self._create_recommendation_dict(row, similarity))
+
         return sorted(similarities, key=lambda x: (x['similarity'], x['average_rating']), reverse=True)[:n_recommendations]
 
     def _create_recommendation_dict(self, row, similarity):
@@ -98,10 +98,11 @@ class BookRecommender:
             'authors': row['authors'],
             'similarity': similarity,
             'average_rating': row['average_rating'],
-            'publication_date': row['publication_date'],
-            'ratings_count': row['ratings_count'],
-            'num_pages': row['num_pages'] if pd.notnull(row.get('num_pages')) else 'N/A'
+            'publication_date': row.get('publication_date', 'N/A'),
+            'ratings_count': row.get('ratings_count', 0),
+            'num_pages': row.get('num_pages', 'N/A')
         }
+
 
 @st.cache_data
 def load_data():
@@ -113,23 +114,27 @@ def load_data():
         data = data.dropna(subset=['title', 'authors', 'average_rating'])
         return data
     except Exception as e:
-        st.error(f"Ошибка при загрузке данных: {e}")
+        st.error(f"Ошибка загрузки данных: {e}")
         return pd.DataFrame()
 
-# Основная функция
+
 def main():
     st.title("📚 NextBook — найди свою следующую любимую книгу")
     st.markdown("#### Открой мир новых любимых книг!")
 
     data = load_data()
     if data.empty:
-        st.error("Данные не загружены. Проверь CSV-файл.")
+        st.error("Данные не загружены. Проверь файл CSV.")
         return
 
     recommender = BookRecommender(data)
 
-    st.sidebar.header("Параметры рекомендации")
-    search_type = st.sidebar.radio("Поиск по:", ["Название книги", "Автор"])
+    st.sidebar.header("Настройки рекомендаций")
+
+    search_type = st.sidebar.radio(
+        "Искать по:",
+        ["Название книги", "Автор"]
+    )
 
     if search_type == "Название книги":
         query = st.sidebar.selectbox("Выберите книгу:", options=data['title'].unique())
@@ -138,59 +143,69 @@ def main():
         query = st.sidebar.selectbox("Выберите автора:", options=data['authors'].unique())
         by = 'author'
 
-    n_recommendations = st.sidebar.slider("Количество рекомендаций:", 1, 10, 5)
+    n_recommendations = st.sidebar.slider(
+        "Количество рекомендаций:",
+        min_value=1,
+        max_value=10,
+        value=5
+    )
 
-    if st.sidebar.button("🔍 Получить рекомендации"):
+    if st.sidebar.button("Получить рекомендации"):
         recommendations = recommender.recommend_books(query, by, n_recommendations)
 
-        for i, book in enumerate(recommendations, 1):
-            with st.container():
-                st.markdown(f"""
-                <div class="recommendation-card">
-                    <h3>{i}. {book['title']}</h3>
-                    <p><strong>Автор(ы):</strong> {book['authors']}</p>
-                    <p><strong>Сходство:</strong> {book['similarity']:.2f}</p>
-                </div>
-                """, unsafe_allow_html=True)
+        tab1, tab2 = st.tabs(["📖 Рекомендации", "📊 График оценок"])
 
-                col1, col2, col3 = st.columns(3)
-
-                with col1:
+        with tab1:
+            for i, book in enumerate(recommendations, 1):
+                with st.container():
                     st.markdown(f"""
-                    <div class="metric-card">
-                        <h4>Рейтинг</h4>
-                        <h2>🌟 {book['average_rating']:.2f}</h2>
+                    <div class="recommendation-card">
+                        <h3>{i}. {book['title']}</h3>
+                        <p><strong>Автор(ы):</strong> {book['authors']}</p>
+                        <p><strong>Похожесть:</strong> {book['similarity']:.2f}</p>
+                        <p><strong>Дата публикации:</strong> {book['publication_date'].date() if pd.notnull(book['publication_date']) else 'Неизвестно'}</p>
                     </div>
                     """, unsafe_allow_html=True)
 
-                with col2:
-                    st.markdown(f"""
-                    <div class="metric-card">
-                        <h4>Страниц</h4>
-                        <h2>📘 {book['num_pages']}</h2>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    col1, col2, col3 = st.columns(3)
 
-                with col3:
-                    st.markdown(f"""
-                    <div class="metric-card">
-                        <h4>Оценок</h4>
-                        <h2>💬 {book['ratings_count']:,}</h2>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    with col1:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <h4>Рейтинг</h4>
+                            <h2>⭐ {book['average_rating']:.2f}</h2>
+                        </div>
+                        """, unsafe_allow_html=True)
 
-        st.subheader("📊 График оценок")
-        fig_ratings = px.bar(
-            pd.DataFrame(recommendations),
-            x='title',
-            y='average_rating',
-            title='Сравнение рейтингов',
-            labels={'title': 'Книга', 'average_rating': 'Рейтинг'},
-            color='average_rating',
-            color_continuous_scale='Blues'
-        )
-        fig_ratings.update_layout(showlegend=False)
-        st.plotly_chart(fig_ratings, use_container_width=True)
+                    with col2:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <h4>Страниц</h4>
+                            <h2>📄 {book['num_pages']}</h2>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    with col3:
+                        st.markdown(f"""
+                        <div class="metric-card">
+                            <h4>Оценок</h4>
+                            <h2>📊 {book['ratings_count']:,}</h2>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+        with tab2:
+            fig_ratings = px.bar(
+                pd.DataFrame(recommendations),
+                x='title',
+                y='average_rating',
+                title='Сравнение рейтингов книг',
+                labels={'title': 'Название книги', 'average_rating': 'Средний рейтинг'},
+                color='average_rating',
+                color_continuous_scale='purples'
+            )
+            fig_ratings.update_layout(showlegend=False)
+            st.plotly_chart(fig_ratings, use_container_width=True)
+
 
 if __name__ == "__main__":
     main()
