@@ -137,7 +137,7 @@ class BookRecommender:
             'average_rating': row['average_rating'],
             'publication_date': row.get('publication_date', 'N/A'),
             'ratings_count': row.get('ratings_count', 0),
-            'num_pages': int(row['num_pages']) if pd.notnull(row['num_pages']) else 'N/A'
+            'num_pages': row.get('num_pages', 'N/A')
 
         }
 
