@@ -209,7 +209,7 @@ def main():
                         st.markdown(f"""
                         <div class="metric-card">
                             <h4>Страниц</h4>
-                            <h2>📄 {book['num_pages']:,}</h2>
+                            <h2>📄 {book['num_pages']}</h2>
                         </div>
                         """, unsafe_allow_html=True)
 
