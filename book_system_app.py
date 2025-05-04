@@ -31,10 +31,14 @@ st.markdown("""
         padding: 0.6rem;
         border-radius: 0.5rem;
         font-weight: bold;
-        transition: background 0.3s ease;
+        transition: background 0.3s ease, transform 0.3s ease;
     }
     .stButton>button:hover {
         background: linear-gradient(90deg, #4C47E3, #6F5BB5);
+        transform: scale(1.05);
+    }
+    .stButton>button:active {
+        background: linear-gradient(90deg, #8A7DFF, #7D6BFF); /* Фикс для красного цвета при нажатии */
     }
     .recommendation-card {
         padding: 1.5rem;
@@ -72,6 +76,11 @@ st.markdown("""
     .stSelectbox select {
         font-family: 'Open Sans', sans-serif;
         font-size: 14px;
+    }
+    .stColumns .stBox {
+        background-color: #f9f9f9 !important;  /* Убираем белый фон для столбцов */
+        padding: 1rem;
+        border-radius: 8px;
     }
     </style>
 """, unsafe_allow_html=True)
