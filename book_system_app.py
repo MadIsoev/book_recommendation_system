@@ -40,7 +40,8 @@ st.markdown("""
         color: white !important;
     }
     .stButton>button:active {
-        background: linear-gradient(90deg, #8A7DFF, #7D6BFF) !important;
+        background: linear-gradient(90deg, #4C47E3, #6F5BB5);
+        transform: scale(1.05);
         color: white !important;
     }
 
