@@ -10,11 +10,18 @@ st.set_page_config(
     layout="wide"
 )
 
-# Новый стиль
+# Новый стиль с улучшениями
 st.markdown("""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap');
+    
     .main {
         padding: 2rem;
+        font-family: 'Open Sans', sans-serif;
+    }
+    h1, h2, h3, h4, h5 {
+        font-family: 'Roboto', sans-serif;
+        color: #4A4A4A;
     }
     .stButton>button {
         width: 100%;
@@ -24,15 +31,24 @@ st.markdown("""
         padding: 0.6rem;
         border-radius: 0.5rem;
         font-weight: bold;
+        transition: background 0.3s ease;
+    }
+    .stButton>button:hover {
+        background: linear-gradient(90deg, #4C47E3, #6F5BB5);
     }
     .recommendation-card {
         padding: 1.5rem;
         border-radius: 1rem;
-        background: linear-gradient(135deg, #F4F3FF, #ECEBFF);
+        background: linear-gradient(135deg, #F0F0F5, #D9D9E4);
         margin: 1rem 0;
         border-left: 5px solid #6C63FF;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        color: black;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        color: #333333;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .recommendation-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
     .metric-card {
         background-color: #ffffff;
@@ -40,12 +56,11 @@ st.markdown("""
         border-radius: 0.8rem;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         color: black;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    h1 {
-        color: #6C63FF;
-    }
-    h2, h3, h4, h6 {
-        color: #333333;
+    .metric-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
     .subtitle {
         color: white;
@@ -53,6 +68,10 @@ st.markdown("""
         background-color: #6C63FF;
         padding: 10px;
         border-radius: 5px;
+    }
+    .stSelectbox select {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
     }
     </style>
 """, unsafe_allow_html=True)
