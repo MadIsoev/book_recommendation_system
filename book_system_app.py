@@ -7,7 +7,7 @@ from datetime import datetime
 
  
 st.set_page_config(
-    page_title="Book Recommender",
+    page_title="NextBook — рекомендательная система",
     page_icon="📚",
     layout="wide"
 )
@@ -132,8 +132,8 @@ def load_data():
         return pd.DataFrame()
 
 def main():
-    st.title("📚 ReadWise - Your Personal Book Recommender")
-    st.markdown("#### Discover your next favorite read!")
+    st.title("📚 NextBook — найди свою следующую любимую книгу")
+    st.markdown("#### Открой мир новых любимых книг!")
  
     data = load_data()
     
