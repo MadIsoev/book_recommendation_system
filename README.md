@@ -1,25 +1,25 @@
-# 📦 Streamlit App Starter Kit 
-```
-⬆️ (Replace above with your app's name)
-```
+# 📚 Проект: Books Recommendation System
 
-Description of the app ...
+**Цель проекта:**
+Создать рекомендательную систему для книг, которая поможет пользователям находить интересные произведения на основе их предпочтений и информации о книгах. Система должна использовать как коллаборативную фильтрацию, так и контентные характеристики книг.
 
-## Demo App
+Этот проект строит рекомендательную систему книг на основе трех датасетов: Users, Ratings и Books.
+
+**Что сделано:**
+- Загрузка и первичная обработка данных.
+- Построение модели **коллаборативной фильтрации** с помощью алгоритма **SVD**.
+- Построение модели **контентной фильтрации** на основе TF-IDF векторов названий книг и **косинусного сходства**.
+- Оценка качества модели с использованием метрик **RMSE** и **MAE**.
+- Реализация функции получения рекомендаций по названию книги.
+
+**Использованные библиотеки:** pandas, sklearn, surprise, numpy
+
+
+## App
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-starter-kit.streamlit.app/)
 
 ## GitHub Codespaces
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/app-starter-kit?quickstart=1)
+[![Open in GitHub Codespaces](https://[github.com/codespaces/badge.svg](https://github.com/MadIsoev/book_recommendation_system))]
 
-## Section Heading
-
-This is filler text, please replace this with text for this section.
-
-## Further Reading
-
-This is filler text, please replace this with a explanatory text about further relevant resources for this repo
-- Resource 1
-- Resource 2
-- Resource 3
