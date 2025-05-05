@@ -58,22 +58,11 @@ if st.session_state.page == "home":
     st.write("Добро пожаловать!")
 
 elif st.session_state.page == "recommend":
-    st.title("📚 Рекомендации")
-    st.write("Ваши персональные книги здесь.")
-
-elif st.session_state.page == "analytics":
-    st.title("📊 Аналитика")
-    st.write("Здесь графики и анализ.")
-
-
-
-
-
-st.set_page_config(
+    st.set_page_config(
     page_title="NextBook — сервис рекомендаций книг",
     page_icon="📚",
     layout="wide"
-)
+    )
 
 st.markdown("""
     <style>
@@ -310,3 +299,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+elif st.session_state.page == "analytics":
+    st.title("📊 Аналитика")
+    st.write("Здесь графики и анализ.")
+
+
+
+
+
+
