@@ -48,10 +48,10 @@ with st.sidebar:
     
     if st.button("🏠 Главная", key="home_btn"):
         st.session_state.page = "home"
-    if st.button("📚 Рекомендации", key="rec_btn"):
-        st.session_state.page = "recommend"
     if st.button("📊 Аналитика", key="analytics_btn"):
         st.session_state.page = "analytics"
+    if st.button("📚 Рекомендации", key="rec_btn"):
+        st.session_state.page = "recommend"
     
     st.markdown('</div>', unsafe_allow_html=True)
 
