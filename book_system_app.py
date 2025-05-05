@@ -4,6 +4,23 @@ from difflib import SequenceMatcher
 import plotly.express as px
 from datetime import datetime
 
+# Главное меню в боковой панели
+page = st.sidebar.radio("📂 Выберите страницу:", ["🏠 Главная", "📚 Рекомендации", "📊 Аналитика"])
+
+# Логика отображения содержимого в зависимости от выбора
+if page == "🏠 Главная":
+    st.title("🏠 Добро пожаловать!")
+    st.write("Это главная страница приложения.")
+
+elif page == "📚 Рекомендации":
+    st.title("📚 Рекомендации книг")
+    st.write("Здесь будут ваши персональные рекомендации.")
+
+elif page == "📊 Аналитика":
+    st.title("📊 Аналитика")
+    st.write("Графики, таблицы и статистика.")
+
+
 st.set_page_config(
     page_title="NextBook — сервис рекомендаций книг",
     page_icon="📚",
