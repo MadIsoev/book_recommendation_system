@@ -6,32 +6,66 @@ from datetime import datetime
 
 import streamlit as st
 
-# Инициализация выбранной страницы в session_state
-if 'page' not in st.session_state:
+import streamlit as st
+
+# Устанавливаем начальную страницу
+if "page" not in st.session_state:
     st.session_state.page = "home"
 
-# Боковая панель с кнопками
-with st.sidebar:
-    st.markdown("## 📂 Меню")
-    if st.button("🏠 Главная"):
-        st.session_state.page = "home"
-    if st.button("📚 Рекомендации"):
-        st.session_state.page = "recommend"
-    if st.button("📊 Аналитика"):
-        st.session_state.page = "analytics"
+# --- Стилизация кнопок во вкладки ---
+st.markdown("""
+    <style>
+    .sidebar-tab button {
+        width: 100%;
+        margin-bottom: 5px;
+        padding: 0.5rem 1rem;
+        border: none;
+        background: #f0f0f5;
+        color: #333;
+        font-weight: 600;
+        border-radius: 10px;
+        text-align: left;
+        transition: 0.2s ease-in-out;
+    }
+    .sidebar-tab button:hover {
+        background: #d6d6f5;
+        color: #000;
+    }
+    .sidebar-tab button.active {
+        background: #6C63FF;
+        color: white;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-# Контент для разных "вкладок"
+# --- Боковая панель как вкладки ---
+with st.sidebar:
+    st.markdown("### 📘 Меню")
+    st.markdown('<div class="sidebar-tab">', unsafe_allow_html=True)
+    
+    if st.button("🏠 Главная", key="home_btn"):
+        st.session_state.page = "home"
+    if st.button("📚 Рекомендации", key="rec_btn"):
+        st.session_state.page = "recommend"
+    if st.button("📊 Аналитика", key="analytics_btn"):
+        st.session_state.page = "analytics"
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# --- Отображение страниц ---
 if st.session_state.page == "home":
-    st.title("🏠 Главная страница")
-    st.write("Добро пожаловать в приложение!")
+    st.title("🏠 Главная")
+    st.write("Добро пожаловать!")
 
 elif st.session_state.page == "recommend":
-    st.title("📚 Рекомендации книг")
-    st.write("Здесь будут персональные рекомендации...")
+    st.title("📚 Рекомендации")
+    st.write("Ваши персональные книги здесь.")
 
 elif st.session_state.page == "analytics":
     st.title("📊 Аналитика")
-    st.write("Здесь будет графический анализ и визуализации.")
+    st.write("Здесь графики и анализ.")
+
+
 
 
 
