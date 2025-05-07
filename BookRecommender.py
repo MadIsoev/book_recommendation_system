@@ -3,6 +3,9 @@ import pandas as pd
 from difflib import SequenceMatcher
 import plotly.express as px
 from datetime import datetime
+import seaborn as sns
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud, STOPWORDS
 
 st.set_page_config(
     page_title="NextBook — рекомендательная система",
@@ -193,7 +196,7 @@ def main():
                         </div>
                         """, unsafe_allow_html=True)
 
-        with tab2:
+        with tab2: # График баров: средние рейтинги рекомендованных книг
             fig_ratings = px.bar(
                 pd.DataFrame(recommendations),
                 x='title',
@@ -205,6 +208,48 @@ def main():
             )
             fig_ratings.update_layout(showlegend=False)
             st.plotly_chart(fig_ratings, use_container_width=True)
+            
+            # Дополнительные графики — на основе всего датасета
+            st.markdown("### 📈 Топ-10 самых популярных книг по количеству оценок")
+            
+            # Топ-10 популярных книг
+            book_counts = (
+                data.groupby('title')['average_rating']
+                .count()
+                .sort_values(ascending=False)
+            )
+            popular_books = book_counts.reset_index()
+            popular_books.columns = ['title', 'rating_count']
+            
+            top_10_books = popular_books.head(10)
+            
+            # Построение графика через matplotlib/seaborn
+            fig, ax = plt.subplots(figsize=(10, 6))
+            sns.barplot(x='rating_count', y='title', data=top_10_books, palette='Set3', ax=ax)
+            ax.set_xlabel('Количество оценок', fontsize=12)
+            ax.set_ylabel('Название книги', fontsize=12)
+            ax.set_title('Топ-10 самых популярных книг', fontsize=14)
+            st.pyplot(fig)
+            
+            # Облако слов — названия книг, повторённые по количеству оценок
+            book_string = " ".join((title + " ") * count for title, count in book_counts.items())
+            
+            custom_stopwords = set(STOPWORDS) - {"the", "a", "and", "in", "is", "of", "to"}
+            
+            wc = WordCloud(
+                width=1000,
+                height=600,
+                max_font_size=120,
+                stopwords=custom_stopwords,
+                background_color='white'
+            ).generate(book_string)
+            
+            fig_wc, ax_wc = plt.subplots(figsize=(16, 8))
+            ax_wc.imshow(wc, interpolation='bilinear')
+            ax_wc.axis('off')
+            ax_wc.set_title('Облако популярных книг по количеству оценок', fontsize=16)
+            st.pyplot(fig_wc)
+
 
 
 if __name__ == "__main__":
