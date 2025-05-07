@@ -161,7 +161,7 @@ def main():
     if st.sidebar.button("Получить рекомендации"):
         recommendations = recommender.recommend_books(query, by, n_recommendations)
 
-        tab1, tab2 = st.tabs(["📖 Рекомендации", "📊 График оценок"])
+        tab1, tab2 = st.tabs(["📖 Рекомендации", "📊 Аналитика"])
 
         with tab1:
             for i, book in enumerate(recommendations, 1):
