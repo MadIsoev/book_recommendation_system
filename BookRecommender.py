@@ -210,7 +210,7 @@ def main():
             st.plotly_chart(fig_ratings, use_container_width=True)
             
             # Дополнительные графики — на основе всего датасета
-            st.markdown("### 📈 Топ-10 самых популярных книг по рейтингу")
+            st.markdown("### 📈 Топ-10 самых популярных книг")
             
             # Топ-10 популярных книг
             book_counts = (
@@ -226,13 +226,13 @@ def main():
             # Построение графика через matplotlib/seaborn
             fig, ax = plt.subplots(figsize=(10, 6))
             sns.barplot(x='rating_count', y='title', data=top_10_books, palette='Set3', ax=ax)
-            ax.set_xlabel('Количество оценок', fontsize=12)
+            ax.set_xlabel('Рейтинг', fontsize=12)
             ax.set_ylabel('Название книги', fontsize=12)
-            ax.set_title('Топ-10 самых популярных книг', fontsize=14)
+            ax.set_title('Топ-10 самых популярных книг по рейтингу', fontsize=14)
             st.pyplot(fig)
             
             # Облако слов — названия книг по рейтингу
-            st.subheader("☁️ Облако популярных книг по рейтингу")
+            st.subheader("☁️ Облако популярных книг")
             book_string = " ".join((title + " ") * count for title, count in book_counts.items())
             
             custom_stopwords = set(STOPWORDS) - {"the", "a", "and", "in", "is", "of", "to"}
@@ -248,7 +248,6 @@ def main():
             fig_wc, ax_wc = plt.subplots(figsize=(16, 8))
             ax_wc.imshow(wc, interpolation='bilinear')
             ax_wc.axis('off')
-#            ax_wc.set_title('Облако популярных книг по рейтингу', fontsize=16)
 
             st.pyplot(fig_wc)
 
