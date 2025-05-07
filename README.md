@@ -6,18 +6,22 @@
 Этот проект строит рекомендательную систему книг на основе трех датасетов: Users, Ratings и Books.
 
 **Что сделано:**
-- Загрузка и первичная обработка данных.
-- Построение модели **коллаборативной фильтрации** с помощью алгоритма **SVD**.
-- Построение модели **контентной фильтрации** на основе TF-IDF векторов названий книг и **косинусного сходства**.
-- Оценка качества модели с использованием метрик **RMSE** и **MAE**.
-- Реализация функции получения рекомендаций по названию книги.
+- Загрузка и подготовка данных.
+- Анализ данных (**EDA**).
+- Подготовка выборок.
+- Подготовка и обучение модели (**KNN** на косинусной метрике, **SVD** и **Cosine Similarity**).
+- Реализация функции получения рекомендаций:
+    - по названию книги (item-based)
+    - по пользователю (user-based)
+    - по автору.
+- Оценка качества модели с использованием метрик **Precision, Recall, MAP, MRR.**
 
-**Использованные библиотеки:** pandas, sklearn, surprise, numpy
+**Использованные библиотеки:** pandas, numpy, sklearn, scipy, matplotlib и seaborn.
 
 
 ## App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-starter-kit.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://nextbook.streamlit.app/)
 
 ## GitHub Codespaces
 
