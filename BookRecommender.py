@@ -250,6 +250,47 @@ def main():
             ax_wc.set_title('Облако популярных книг по количеству оценок', fontsize=16)
             st.pyplot(fig_wc)
 
+            st.markdown("---")
+            
+            st.subheader("📚 Топ-10 авторов по количеству оценок")
+            
+            # Подсчёт количества оценок по авторам
+            author_counts = (
+                data.groupby('authors')['average_rating']
+                .count()
+                .sort_values(ascending=False)
+            )
+            
+            top_authors = author_counts.head(10).reset_index()
+            top_authors.columns = ['authors', 'rating_count']
+            
+            # Построение графика Seaborn
+            fig_authors, ax = plt.subplots(figsize=(10, 6))
+            sns.barplot(x='rating_count', y='authors', data=top_authors, palette='viridis', ax=ax)
+            ax.set_xlabel('Количество оценок', fontsize=12)
+            ax.set_ylabel('Автор', fontsize=12)
+            ax.set_title('Топ-10 авторов по количеству оценок', fontsize=16)
+            st.pyplot(fig_authors)
+            
+            # Облако слов по авторам
+            st.subheader("☁️ Облако популярных авторов")
+            
+            author_string = " ".join((author + " ") * count for author, count in author_counts.items())
+            
+            stop_words = set(STOPWORDS)
+            
+            wc = WordCloud(
+                width=1000,
+                height=600,
+                max_font_size=120,
+                stopwords=stop_words,
+                background_color='white'
+            ).generate(author_string)
+            
+            fig_wc, ax_wc = plt.subplots(figsize=(12, 6))
+            ax_wc.imshow(wc, interpolation='bilinear')
+            ax_wc.axis('off')
+            st.pyplot(fig_wc)
 
 
 if __name__ == "__main__":
