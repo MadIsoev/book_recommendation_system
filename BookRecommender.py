@@ -14,52 +14,61 @@ st.set_page_config(
 )
 
 # Новый стиль
-st.markdown("""
-    <style>
-    .main {
-        padding: 2rem;
-    }
-    .stButton>button {
-        width: 100%;
-        background: linear-gradient(90deg, #6C63FF, #A084DC);
-        color: white;
-        border: none;
-        padding: 0.6rem;
-        border-radius: 0.5rem;
-        font-weight: bold;
-    }
-    .recommendation-card {
-        padding: 1.5rem;
-        border-radius: 1rem;
-        background: linear-gradient(135deg, #F4F3FF, #ECEBFF);
-        margin: 1rem 0;
-        border-left: 5px solid #6C63FF;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        color: black;
-    }
-    .metric-card {
-        background-color: #ffffff;
-        padding: 1rem;
-        border-radius: 0.8rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        color: black;
-    }
-    h1 {
-        color: #6C63FF;
-    }
-    h2, h3, h4, h6 {
-        color: #333333;
-    }
-    .subtitle {
-        color: white;
-        font-size: 16px;
-        background-color: #6C63FF;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    </style>
-""", unsafe_allow_html=True)
+style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap');
 
+        .main {
+            padding: 2rem;
+            font-family: 'Open Sans', sans-serif;
+        }
+        h1, h2, h3, h4, h5 {
+            font-family: 'Roboto', sans-serif;
+            color: #4A4A4A;
+        }
+
+        .stButton>button {
+            width: 100%;
+            background: linear-gradient(90deg, #6C63FF, #A084DC);
+            color: white;
+            border: none;
+            padding: 0.6rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .stButton>button:hover {
+            background: linear-gradient(90deg, #4C47E3, #6F5BB5);
+            transform: scale(1.05);
+            color: white;
+        }
+        .recommendation-card {
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #F0F0F5, #D9D9E4);
+            margin: 1rem 0;
+            border-left: 5px solid #6C63FF;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: #333333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .metric-card {
+            background-color: #ffffff;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: black;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 class BookRecommender:
     def __init__(self, data):
