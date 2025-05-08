@@ -10,8 +10,8 @@ import os
 folder_name = "ProjectCode"
 
 # Создание папки, если её ещё нет
-if not os.path.exists(ProjectCode):
-    os.makedirs(ProjectCode)
+if not os.path.exists(folder_name):
+    os.makedirs(folder_name)
 
 # --- ОБЯЗАТЕЛЬНО В САМОМ НАЧАЛЕ ---
 st.set_page_config(
