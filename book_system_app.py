@@ -4,10 +4,6 @@ from difflib import SequenceMatcher
 import plotly.express as px
 from datetime import datetime
 
-# Создание папки, если её ещё нет
-if not os.path.exists(folder_name):
-    os.makedirs(folder_name)
-
 # --- ОБЯЗАТЕЛЬНО В САМОМ НАЧАЛЕ ---
 st.set_page_config(
     page_title="NextBook — сервис рекомендаций книг",
