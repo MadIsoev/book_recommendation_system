@@ -4,11 +4,6 @@ from difflib import SequenceMatcher
 import plotly.express as px
 from datetime import datetime
 
-import os
-
-# Название нужной папки
-folder_name = "ProjectCode"
-
 # Создание папки, если её ещё нет
 if not os.path.exists(folder_name):
     os.makedirs(folder_name)
