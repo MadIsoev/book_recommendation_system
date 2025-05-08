@@ -4,6 +4,15 @@ from difflib import SequenceMatcher
 import plotly.express as px
 from datetime import datetime
 
+import os
+
+# Название нужной папки
+folder_name = "ProjectCode"
+
+# Создание папки, если её ещё нет
+if not os.path.exists(ProjectCode):
+    os.makedirs(ProjectCode)
+
 # --- ОБЯЗАТЕЛЬНО В САМОМ НАЧАЛЕ ---
 st.set_page_config(
     page_title="NextBook — сервис рекомендаций книг",
